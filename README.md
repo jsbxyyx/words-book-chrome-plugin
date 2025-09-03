@@ -1,7 +1,9 @@
-# words-book-chrome-plugin
+# Word Book Extension
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Chrome Web Store](https://img.shields.io/badge/Chrome-Extension-blue.svg)](https://chrome.google.com/webstore)
+
+**Language / 语言**: [English](README.md) | [中文](README_zh.md)
 
 A powerful Chrome extension for learning and managing English vocabulary with automatic translation capabilities.
 
@@ -75,7 +77,8 @@ word-book-extension/
 │   ├── icon16.png
 │   ├── icon48.png
 │   └── icon128.png
-└── README.md             # This file
+├── README.md             # This file (English)
+└── README_zh.md          # Chinese version
 ```
 
 ## 🎨 Features in Detail
@@ -166,7 +169,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📈 Changelog
 
-### v1.0.0 (2025-01-10)
+### v1.0.0 (2025-09-03)
 - Initial release
 - Right-click word addition
 - Automatic translation with DeepL API
@@ -177,3 +180,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 **Happy Learning!** 📚✨
+
+**Language / 语言**: [English](README.md) | [中文](README_zh.md)
