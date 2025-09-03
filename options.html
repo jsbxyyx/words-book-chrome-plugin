@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>单词本 - 设置</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 28px;
+            color: #667eea;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .section {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .section h2 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background 0.2s;
+            margin-right: 12px;
+        }
+
+        .btn:hover {
+            background: #5a6fd8;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 24px;
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .file-input {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #667eea;
+            transition: width 0.3s;
+        }
+
+        .message {
+            padding: 12px 16px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .message-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .message-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 单词本设置</h1>
+            <p>管理您的单词学习偏好和数据</p>
+        </div>
+
+        <div id="messageContainer"></div>
+
+        <div class="section">
+            <h2>📊 统计信息</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalWordsCount">0</div>
+                    <div class="stat-label">总单词数</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="familiarWordsCount">0</div>
+                    <div class="stat-label">已熟悉</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="reviewWordsCount">0</div>
+                    <div class="stat-label">需复习</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="todayAddedCount">0</div>
+                    <div class="stat-label">今日新增</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>⚙️ 学习设置</h2>
+            <div class="form-group">
+                <label for="studyMode">学习模式</label>
+                <select id="studyMode">
+                    <option value="random">随机模式</option>
+                    <option value="unfamiliar">优先不熟悉</option>
+                    <option value="oldest">按添加时间</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="wordsPerSession">每次学习单词数</label>
+                <input type="number" id="wordsPerSession" min="5" max="50" value="10">
+            </div>
+            <div class="form-group">
+                <label for="autoShowMeaning">自动显示释义（秒）</label>
+                <input type="number" id="autoShowMeaning" min="0" max="10" value="0" placeholder="0 表示手动显示">
+            </div>
+            <button class="btn" onclick="saveSettings()">保存设置</button>
+        </div>
+
+        <div class="section">
+            <h2>📁 数据管理</h2>
+            
+            <div class="form-group">
+                <label>导出单词数据</label>
+                <p style="color: #666; font-size: 14px; margin-bottom: 12px;">
+                    将您的所有单词数据导出为JSON文件，可用于备份或迁移。
+                </p>
+                <button class="btn" onclick="exportData()">导出数据</button>
+            </div>
+
+            <div class="form-group">
+                <label>导入单词数据</label>
+                <p style="color: #666; font-size: 14px; margin-bottom: 12px;">
+                    从JSON文件导入单词数据。注意：这将覆盖现有数据。
+                </p>
+                <div class="file-input-wrapper">
+                    <button class="btn btn-secondary">选择文件</button>
+                    <input type="file" class="file-input" id="importFile" accept=".json" onchange="importData(event)">
+                </div>
+                <div id="importProgress" class="progress-bar hidden">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>清空所有数据</label>
+                <p style="color: #666; font-size: 14px; margin-bottom: 12px;">
+                    ⚠️ 警告：此操作将永久删除所有单词数据，无法恢复。
+                </p>
+                <button class="btn btn-danger" onclick="clearAllData()">清空数据</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>ℹ️ 关于</h2>
+            <p><strong>版本：</strong>1.0.0</p>
+            <p><strong>开发者：</strong><a href="https://github.com/jsbxyyx" target="_blank">jsbxyyx</a></p>
+            <p><strong>功能：</strong></p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>快速添加和管理英语单词</li>
+                <li>智能学习模式和复习提醒</li>
+                <li>网页文本选择快速添加</li>
+                <li>数据导入导出功能</li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="options.js"></script>
+</body>
+</html>

@@ -1,0 +1,664 @@
+/* 删除确认弹窗样式 */
+.delete-confirm-modal {
+    max-width: 400px;
+    width: 90%;
+}
+
+.delete-confirm-content {
+    padding: 20px;
+}
+
+.delete-word-info {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+    text-align: center;
+    border-left: 4px solid #dc3545;
+}
+
+.delete-word-text {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.delete-word-translation {
+    font-size: 14px;
+    color: #666;
+    font-weight: 500;
+}
+
+.delete-confirm-message {
+    color: #666;
+    text-align: center;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.delete-confirm-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.btn-cancel {
+    background: #6c757d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.2s;
+    min-width: 80px;
+}
+
+.btn-cancel:hover {
+    background: #5a6268;
+}
+
+.btn-danger {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.2s;
+    min-width: 80px;
+}
+
+.btn-danger:hover {
+    background: #c82333;
+}
+
+/* 更新统计区域样式 */
+.stats-section {
+    padding: 12px 16px;
+    background: white;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 8px;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 6px 8px;
+    background: #f8f9fa;
+    border-radius: 4px;
+    flex: 1;
+    min-width: 0;
+}
+
+.stat-label {
+    display: inline;
+    font-size: 11px;
+    color: #666;
+    margin-right: 4px;
+}
+
+.stat-value {
+    display: inline;
+    font-size: 14px;
+    font-weight: 600;
+    color: #667eea;
+}
+
+/* 翻译按钮样式 */
+.word-no-translation {
+    margin-top: 4px;
+}
+
+.btn-translate {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+.btn-translate:hover:not(:disabled) {
+    background: #0056b3;
+}
+
+.btn-translate:disabled {
+    background: #6c757d;
+    cursor: not-allowed;
+}
+
+.word-translation {
+    font-size: 12px;
+    color: #666;
+    font-style: normal;
+    font-weight: 500;
+    margin-top: 4px;
+}
+
+/* 其他基础样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #333;
+    background: #f8f9fa;
+    min-width: 420px;
+    max-width: 420px;
+}
+
+.container {
+    width: 420px;
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header h1 {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.header-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-icon {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.2s;
+}
+
+.btn-icon:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.search-section {
+    padding: 16px;
+    background: white;
+    border-bottom: 1px solid #eee;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px 12px;
+    border: 2px solid #e1e5e9;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border-color 0.2s;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.word-list-section {
+    background: white;
+    max-height: 350px;
+    overflow-y: auto;
+}
+
+.section-header {
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    background: #f8f9fa;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.section-header h3 {
+    font-size: 16px;
+    font-weight: 600;
+    flex: 1;
+}
+
+select {
+    padding: 6px 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 12px;
+    background: white;
+    min-width: 120px;
+}
+
+.word-list {
+    padding: 8px;
+}
+
+.word-item {
+    background: white;
+    border: 1px solid #e1e5e9;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 8px;
+    position: relative;
+    transition: box-shadow 0.2s;
+}
+
+.word-item:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.word-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+    gap: 8px;
+}
+
+.word-main {
+    flex: 1;
+    min-width: 0;
+}
+
+.word-text {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 4px;
+    word-break: break-word;
+}
+
+.word-actions {
+    display: flex;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+.btn-small {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 4px;
+    border-radius: 4px;
+    transition: background 0.2s;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-small:hover {
+    background: #f0f0f0;
+}
+
+.word-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: #999;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.familiarity-badge {
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 500;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.familiarity-0 {
+    background: #f0f0f0;
+    color: #666;
+}
+
+.familiarity-1 {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.familiarity-2 {
+    background: #d4edda;
+    color: #155724;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: #999;
+}
+
+.empty-state p {
+    margin-bottom: 8px;
+}
+
+/* 学习模式样式 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background: white;
+    margin: 5% auto;
+    padding: 0;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.modal-header {
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 18px;
+    flex: 1;
+}
+
+.btn-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #999;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.study-content {
+    padding: 20px;
+}
+
+.study-card {
+    text-align: center;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.word-display h2 {
+    font-size: 32px;
+    margin-bottom: 8px;
+    color: #333;
+    word-break: break-word;
+}
+
+.pronunciation {
+    font-size: 16px;
+    color: #666;
+    font-style: normal;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.meaning-display {
+    margin: 20px 0;
+    padding: 16px;
+    background: white;
+    border-radius: 6px;
+    border-left: 4px solid #667eea;
+    text-align: left;
+}
+
+.meaning-display p {
+    font-size: 16px;
+    margin-bottom: 8px;
+    word-break: break-word;
+}
+
+.example {
+    font-style: italic;
+    color: #666;
+    font-size: 14px;
+    word-break: break-word;
+}
+
+.study-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.2s;
+    white-space: nowrap;
+}
+
+.btn-secondary:hover {
+    background: #5a6268;
+}
+
+.btn-unfamiliar {
+    background: #ffc107;
+    color: #212529;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.2s;
+    white-space: nowrap;
+}
+
+.btn-unfamiliar:hover {
+    background: #e0a800;
+}
+
+.btn-familiar {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.2s;
+    white-space: nowrap;
+}
+
+.btn-familiar:hover {
+    background: #218838;
+}
+
+.study-progress {
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+    margin-top: 10px;
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #a1a1a1;
+}
+
+/* 防止内容溢出的全局设置 */
+* {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* 响应式优化 */
+@media (max-width: 450px) {
+    body {
+        min-width: 380px;
+        max-width: 380px;
+    }
+    
+    .container {
+        width: 380px;
+    }
+    
+    .stats-section {
+        gap: 4px;
+        padding: 10px 12px;
+    }
+    
+    .stat-item {
+        padding: 4px 6px;
+    }
+    
+    .stat-label {
+        font-size: 10px;
+    }
+    
+    .stat-value {
+        font-size: 12px;
+    }
+    
+    .delete-confirm-modal {
+        width: 95%;
+    }
+    
+    .delete-confirm-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .section-header {
+        flex-direction: column;
+        gap: 12px;
+        align-items: stretch;
+    }
+    
+    .section-header h3 {
+        text-align: center;
+    }
+    
+    select {
+        min-width: auto;
+    }
+    
+    .study-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .study-buttons button {
+        width: 200px;
+    }
+}
+
+/* 针对Chrome扩展弹窗的特殊优化 */
+@media (max-width: 420px) {
+    .word-header {
+        flex-direction: column;
+        gap: 8px;
+        align-items: flex-start;
+    }
+    
+    .word-actions {
+        align-self: flex-end;
+    }
+    
+    .word-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+    
+    .modal-content {
+        width: 95%;
+        margin: 2% auto;
+    }
+}
+
+/* 确保弹窗内容不会被截断 */
+.container {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+/* 优化长单词的显示 */
+.word-text {
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+}
+
+/* 优化输入框在不同语言下的显示 */
+input[type="text"]::placeholder {
+    color: #999;
+    opacity: 1;
+}
+
+/* 确保按钮文字不会换行 */
+button {
+    white-space: nowrap;
+}
+
+/* 修复潜在的布局问题 */
+.word-list-section {
+    min-height: 200px;
+}

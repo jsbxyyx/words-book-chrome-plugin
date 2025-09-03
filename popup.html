@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>单词本</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>📚 单词本</h1>
+            <div class="header-buttons">
+                <button id="optionsBtn" class="btn-icon" title="设置">⚙️</button>
+                <button id="studyBtn" class="btn-icon" title="学习模式">🎯</button>
+            </div>
+        </header>
+
+        <div class="search-section">
+            <input type="text" id="searchInput" placeholder="🔍 搜索单词...">
+        </div>
+
+        <div class="stats-section">
+            <div class="stat-item">
+                <span class="stat-label">总计:</span>
+                <span id="totalWords" class="stat-value">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">熟悉:</span>
+                <span id="familiarWords" class="stat-value">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">需复习:</span>
+                <span id="reviewWords" class="stat-value">0</span>
+            </div>
+        </div>
+
+        <div class="word-list-section">
+            <div class="section-header">
+                <h3>单词列表</h3>
+                <select id="sortSelect">
+                    <option value="date">按添加时间</option>
+                    <option value="alpha">按字母顺序</option>
+                    <option value="familiarity">按熟悉度</option>
+                </select>
+            </div>
+            <div id="wordList" class="word-list">
+                <div class="empty-state">
+                    <p>还没有添加任何单词</p>
+                    <p>在网页上选择文字并右键"添加到单词本"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 删除确认弹窗 -->
+        <div id="deleteConfirmModal" class="modal">
+            <div class="modal-content delete-confirm-modal">
+                <div class="modal-header">
+                    <h3>🗑️ 确认删除</h3>
+                </div>
+                <div class="delete-confirm-content">
+                    <div class="delete-word-info">
+                        <div class="delete-word-text" id="deleteWordText">example</div>
+                        <div class="delete-word-translation" id="deleteWordTranslation">例子</div>
+                    </div>
+                    <p class="delete-confirm-message">确定要删除这个单词吗？此操作无法撤销。</p>
+                    <div class="delete-confirm-buttons">
+                        <button id="cancelDeleteBtn" class="btn-cancel">取消</button>
+                        <button id="confirmDeleteBtn" class="btn-danger">删除</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 学习模式弹窗 -->
+        <div id="studyModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>🎯 学习模式</h3>
+                    <button id="closeStudyModal" class="btn-close">&times;</button>
+                </div>
+                <div class="study-content">
+                    <div id="studyCard" class="study-card">
+                        <div class="word-display">
+                            <h2 id="studyWord"></h2>
+                            <p id="studyPronunciation" class="pronunciation"></p>
+                        </div>
+                        <div class="meaning-display" id="meaningDisplay" style="display: none;">
+                            <p id="studyMeaning"></p>
+                            <p id="studyExample" class="example"></p>
+                        </div>
+                        <div class="study-buttons">
+                            <button id="showMeaningBtn" class="btn-secondary">显示释义</button>
+                            <div id="familiarityButtons" style="display: none;">
+                                <button id="unfamiliarBtn" class="btn-unfamiliar">不熟悉</button>
+                                <button id="familiarBtn" class="btn-familiar">熟悉</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="study-progress">
+                        <span id="studyProgress">1 / 10</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+{
+  "manifest_version": 3,
+  "name": "单词本 - Word Book",
+  "version": "1.0.0",
+  "description": "一个帮助您学习和管理英语单词的Chrome插件，支持自动翻译",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "单词本"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ],
+  "permissions": [
+    "storage",
+    "contextMenus",
+    "activeTab",
+    "notifications"
+  ],
+  "host_permissions": [
+    "https://deeplx.mingming.dev/*"
+  ],
+  "options_page": "options.html"
+}
