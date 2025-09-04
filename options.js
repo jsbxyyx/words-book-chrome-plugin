@@ -12,9 +12,9 @@ class OptionsManager {
         try {
             const result = await chrome.storage.local.get(['words']);
             const words = result.words || [];
-            
+
             const today = new Date().toISOString().split('T')[0];
-            
+
             const stats = {
                 total: words.length,
                 familiar: words.filter(w => w.familiarity === 2).length,
@@ -57,9 +57,9 @@ class OptionsManager {
         const message = document.createElement('div');
         message.className = `message message-${type}`;
         message.textContent = text;
-        
+
         container.appendChild(message);
-        
+
         setTimeout(() => {
             if (message.parentNode) {
                 message.parentNode.removeChild(message);
@@ -103,7 +103,7 @@ async function exportData() {
 
         const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
         const url = URL.createObjectURL(blob);
-        
+
         const a = document.createElement('a');
         a.href = url;
         a.download = `wordbook-backup-${new Date().toISOString().split('T')[0]}.json`;
@@ -126,7 +126,7 @@ async function importData(event) {
 
     const progressBar = document.getElementById('importProgress');
     const progressFill = progressBar.querySelector('.progress-fill');
-    
+
     try {
         progressBar.classList.remove('hidden');
         progressFill.style.width = '20%';
@@ -197,7 +197,7 @@ async function clearAllData() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     console.log('DOMContentLoaded options');
     const btn_save_settings = document.getElementById('btn-save-settings');
     if (btn_save_settings) {

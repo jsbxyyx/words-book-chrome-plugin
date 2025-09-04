@@ -19,7 +19,7 @@ class WordBook {
             const result = await chrome.storage.local.get(['words']);
             this.words = result.words || [];
             this.filteredWords = [...this.words];
-            
+
             console.log('加载的单词数据:', this.words);
         } catch (error) {
             console.error('加载单词失败:', error);
@@ -71,7 +71,7 @@ class WordBook {
 
         // 学习模式事件
         this.setupStudyModeEvents();
-        
+
         // 删除确认弹窗事件
         this.setupDeleteConfirmEvents();
     }
@@ -140,7 +140,7 @@ class WordBook {
                 token: '',
             };
 
-            const {settings} = await chrome.storage.local.get(['settings']);
+            const { settings } = await chrome.storage.local.get(['settings']);
             translate.url = settings.translateUrl || translate.url;
             translate.token = settings.translateToken || '';
 
@@ -162,11 +162,11 @@ class WordBook {
             });
 
             console.log('翻译响应状态:', response.status);
-            
+
             if (response.ok) {
                 const data = await response.json();
                 console.log('DeepL翻译响应数据:', data);
-                
+
                 if (data && data.code === 200 && data.data) {
                     const translation = data.data.trim();
                     console.log('翻译结果:', translation);
@@ -249,19 +249,19 @@ class WordBook {
         try {
             console.log('开始翻译单词:', word.word);
             let translation = await this.translateWithDeepL(word.word);
-            
+
             if (!translation) {
                 console.log('DeepL翻译失败，尝试本地词典');
                 translation = this.translateWithLocalDict(word.word);
             }
-            
+
             if (translation && translation.trim()) {
                 console.log('翻译成功:', translation);
                 word.meaning = translation.trim();
                 word.translation = translation.trim();
                 word.autoTranslation = translation.trim();
                 word.translatedAt = new Date().toISOString();
-                
+
                 await this.saveWords();
                 this.renderWordList();
                 this.updateStats();
@@ -290,12 +290,12 @@ class WordBook {
         if (!word) return;
 
         this.pendingDeleteId = wordId;
-        
+
         // 更新弹窗内容
         document.getElementById('deleteWordText').textContent = word.word;
-        document.getElementById('deleteWordTranslation').textContent = 
+        document.getElementById('deleteWordTranslation').textContent =
             word.meaning || word.translation || word.autoTranslation || '暂无翻译';
-        
+
         // 显示弹窗
         document.getElementById('deleteConfirmModal').style.display = 'block';
     }
@@ -340,8 +340,8 @@ class WordBook {
             this.filteredWords = [...this.words];
         } else {
             const term = searchTerm.toLowerCase();
-            this.filteredWords = this.words.filter(word => 
-                word.word.toLowerCase().includes(term) || 
+            this.filteredWords = this.words.filter(word =>
+                word.word.toLowerCase().includes(term) ||
                 (word.meaning && word.meaning.toLowerCase().includes(term)) ||
                 (word.translation && word.translation.toLowerCase().includes(term))
             );
@@ -372,7 +372,7 @@ class WordBook {
 
     renderWordList() {
         const wordList = document.getElementById('wordList');
-        
+
         if (this.filteredWords.length === 0) {
             wordList.innerHTML = `
                 <div class="empty-state">
@@ -394,12 +394,12 @@ class WordBook {
                     <div class="word-header">
                         <div class="word-main">
                             <div class="word-text">${this.escapeHtml(word.word)}</div>
-                            ${hasTranslation ? 
-                                `<div class="word-translation">${this.escapeHtml(translation)}</div>` :
-                                `<div class="word-no-translation">
+                            ${hasTranslation ?
+                    `<div class="word-translation">${this.escapeHtml(translation)}</div>` :
+                    `<div class="word-no-translation">
                                     <button class="btn-translate" data-translate-id="${word.id}">🔄 翻译</button>
                                 </div>`
-                            }
+                }
                         </div>
                         <div class="word-actions">
                             <button class="btn-small familiarity-btn" data-id="${word.id}" title="标记熟悉度">
@@ -424,16 +424,16 @@ class WordBook {
 
     setupWordListEvents() {
         const wordList = document.getElementById('wordList');
-        
+
         // 移除旧的事件监听器
         if (this.handleWordListClick) {
             wordList.removeEventListener('click', this.handleWordListClick);
         }
-        
+
         // 添加新的事件监听器
         this.handleWordListClick = (e) => {
             const target = e.target;
-            
+
             if (target.classList.contains('delete-btn')) {
                 const wordId = target.getAttribute('data-id');
                 this.deleteWord(wordId);
@@ -445,7 +445,7 @@ class WordBook {
                 this.translateWord(wordId);
             }
         };
-        
+
         wordList.addEventListener('click', this.handleWordListClick);
     }
 
@@ -511,20 +511,20 @@ class WordBook {
         }
 
         const word = this.studyWords[this.currentStudyIndex];
-        
+
         // 获取翻译内容
         let translation = word.meaning || word.translation || word.autoTranslation || '暂无翻译';
-        
+
         document.getElementById('studyWord').textContent = word.word;
         document.getElementById('studyPronunciation').textContent = translation;
         document.getElementById('studyMeaning').textContent = translation;
         document.getElementById('studyExample').textContent = word.example || '';
-        
+
         document.getElementById('meaningDisplay').style.display = 'none';
         document.getElementById('showMeaningBtn').style.display = 'block';
         document.getElementById('familiarityButtons').style.display = 'none';
-        
-        document.getElementById('studyProgress').textContent = 
+
+        document.getElementById('studyProgress').textContent =
             `${this.currentStudyIndex + 1} / ${this.studyWords.length}`;
     }
 
@@ -537,7 +537,7 @@ class WordBook {
     async markFamiliarity(familiarity) {
         const word = this.studyWords[this.currentStudyIndex];
         const originalWord = this.words.find(w => w.id === word.id);
-        
+
         if (originalWord) {
             originalWord.familiarity = familiarity;
             originalWord.lastReviewDate = new Date().toISOString().split('T')[0];

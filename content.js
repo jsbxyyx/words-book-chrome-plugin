@@ -102,7 +102,7 @@ class WordSelector {
         });
 
         this.hideQuickAddButton();
-        
+
         // 显示添加成功提示
         this.showNotification('单词已添加到单词本！');
     }

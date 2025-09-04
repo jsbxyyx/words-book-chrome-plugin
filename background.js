@@ -19,22 +19,22 @@ class WordBookBackground {
         chrome.contextMenus.onClicked.addListener(async (info, tab) => {
             if (info.menuItemId === 'addToWordBook' && info.selectionText) {
                 const selectedText = info.selectionText.trim();
-                
+
                 if (this.isValidWord(selectedText)) {
                     // 获取当前单词列表
                     const result = await chrome.storage.local.get(['words']);
                     const words = result.words || [];
-                    
+
                     // 检查是否已存在
-                    const existingWord = words.find(w => 
+                    const existingWord = words.find(w =>
                         w.word.toLowerCase() === selectedText.toLowerCase()
                     );
-                    
+
                     if (existingWord) {
                         this.showNotification('该单词已存在于单词本中');
                         return;
                     }
-                    
+
                     // 添加新单词（暂不翻译，等用户手动点击翻译按钮）
                     const newWord = {
                         id: this.generateId(),
@@ -55,10 +55,10 @@ class WordBookBackground {
                             title: tab.title
                         }
                     };
-                    
+
                     words.unshift(newWord);
                     await chrome.storage.local.set({ words });
-                    
+
                     this.showNotification(`单词"${selectedText}"已添加到单词本`);
                 } else {
                     this.showNotification('请选择有效的英文单词');
