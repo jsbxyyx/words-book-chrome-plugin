@@ -37,12 +37,16 @@ class OptionsManager {
             const settings = result.settings || {
                 studyMode: 'unfamiliar',
                 wordsPerSession: 10,
-                autoShowMeaning: 0
+                autoShowMeaning: 0,
+                translateUrl: 'https://deeplx.mingming.dev/translate',
+                translateToken: ''
             };
 
             document.getElementById('studyMode').value = settings.studyMode;
             document.getElementById('wordsPerSession').value = settings.wordsPerSession;
             document.getElementById('autoShowMeaning').value = settings.autoShowMeaning;
+            document.getElementById('translateUrl').value = settings.translateUrl;
+            document.getElementById('translateToken').value = settings.translateToken;
         } catch (error) {
             console.error('加载设置失败:', error);
         }
@@ -73,7 +77,9 @@ async function saveSettings() {
         const settings = {
             studyMode: document.getElementById('studyMode').value,
             wordsPerSession: parseInt(document.getElementById('wordsPerSession').value),
-            autoShowMeaning: parseInt(document.getElementById('autoShowMeaning').value)
+            autoShowMeaning: parseInt(document.getElementById('autoShowMeaning').value),
+            translateUrl: document.getElementById('translateUrl').value,
+            translateToken: document.getElementById('translateToken').value,
         };
 
         await chrome.storage.local.set({ settings });

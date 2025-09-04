@@ -4,6 +4,10 @@ class WordBook {
         this.filteredWords = [];
         this.studyWords = [];
         this.currentStudyIndex = 0;
+        this.translate = {
+            url: 'https://deeplx.mingming.dev/translate',
+            token: '',
+        };
         
         this.init();
     }
@@ -13,6 +17,7 @@ class WordBook {
         this.setupEventListeners();
         this.renderWordList();
         this.updateStats();
+        await this.loadTranslateSettings();
     }
 
     async loadWords() {
@@ -33,6 +38,19 @@ class WordBook {
             console.log('保存单词成功');
         } catch (error) {
             console.error('保存单词失败:', error);
+        }
+    }
+
+    async loadTranslateSettings() {
+        try {
+            const settings = await chrome.storage.local.get(['settings']);
+            this.translate = {
+                url: settings.translateUrl,
+                token: settings.translateToken,
+            };
+            console.log('加载的翻译配置:', this.translate);
+        } catch (err) {
+            console.log('加载的翻译配置失败:', err);
         }
     }
 
@@ -122,12 +140,18 @@ class WordBook {
     async translateWithDeepL(word) {
         try {
             console.log('开始翻译单词:', word);
-            const response = await fetch('https://deeplx.mingming.dev/translate', {
+            const translateUrl = this.translate.url;
+            const translateToken = this.translate.token;
+            const headers = {
+                'Content-Type': 'application/json',
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+            }
+            if (translateToken != null && translateToken.trim() != '') {
+                headers['authorization'] = translateToken;
+            }
+            const response = await fetch(translateUrl, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
-                },
+                headers: headers,
                 body: JSON.stringify({
                     text: word,
                     source_lang: "auto",
