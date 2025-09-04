@@ -4,11 +4,6 @@ class WordBook {
         this.filteredWords = [];
         this.studyWords = [];
         this.currentStudyIndex = 0;
-        this.translate = {
-            url: 'https://deeplx.mingming.dev/translate',
-            token: '',
-        };
-        
         this.init();
     }
 
@@ -17,7 +12,6 @@ class WordBook {
         this.setupEventListeners();
         this.renderWordList();
         this.updateStats();
-        await this.loadTranslateSettings();
     }
 
     async loadWords() {
@@ -140,16 +134,24 @@ class WordBook {
     async translateWithDeepL(word) {
         try {
             console.log('开始翻译单词:', word);
-            const translateUrl = this.translate.url;
-            const translateToken = this.translate.token;
+
+            const translate = {
+                url: 'https://deeplx.mingming.dev/translate',
+                token: '',
+            };
+
+            const settings = await chrome.storage.local.get(['settings']);
+            translate.url = settings.translateUrl || translate.url;
+            translate.token = settings.translateToken || '';
+
             const headers = {
                 'Content-Type': 'application/json',
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
             }
-            if (translateToken != null && translateToken.trim() != '') {
-                headers['authorization'] = translateToken;
+            if (translate.token != null && translate.token.trim() != '') {
+                headers['authorization'] = translate.token;
             }
-            const response = await fetch(translateUrl, {
+            const response = await fetch(translate.url, {
                 method: 'POST',
                 headers: headers,
                 body: JSON.stringify({
