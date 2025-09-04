@@ -203,4 +203,12 @@ document.addEventListener('DOMContentLoaded', function() {
     if (btn_save_settings) {
         btn_save_settings.addEventListener('click', saveSettings);
     }
+    const btn_export_data = document.getElementById('btn-export-data');
+    if (btn_export_data) {
+        btn_export_data.addEventListener('click', exportData);
+    }
+    const btn_clearall_data = document.getElementById('btn-clearall-data');
+    if (btn_clearall_data) {
+        btn_clearall_data.addEventListener('click', clearAllData);
+    }
 });

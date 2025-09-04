@@ -140,7 +140,7 @@ class WordBook {
                 token: '',
             };
 
-            const settings = await chrome.storage.local.get(['settings']);
+            const {settings} = await chrome.storage.local.get(['settings']);
             translate.url = settings.translateUrl || translate.url;
             translate.token = settings.translateToken || '';
 
