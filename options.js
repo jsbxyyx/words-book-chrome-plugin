@@ -196,3 +196,11 @@ async function clearAllData() {
         optionsManager.showMessage('清空数据失败', 'error');
     }
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOMContentLoaded options');
+    const btn_save_settings = document.getElementById('btn-save-settings');
+    if (btn_save_settings) {
+        btn_save_settings.addEventListener('click', saveSettings);
+    }
+});
