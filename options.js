@@ -80,6 +80,8 @@ async function saveSettings() {
             autoShowMeaning: parseInt(document.getElementById('autoShowMeaning').value),
             translateUrl: document.getElementById('translateUrl').value,
             translateToken: document.getElementById('translateToken').value,
+            translateSource: document.getElementById('translateSource').value,
+            translateTarget: document.getElementById('translateTarget').value,
         };
 
         await chrome.storage.local.set({ settings });

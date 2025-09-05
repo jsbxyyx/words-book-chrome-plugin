@@ -138,11 +138,15 @@ class WordBook {
             const translate = {
                 url: 'https://deeplx.mingming.dev/translate',
                 token: '',
+                source: 'EN',
+                target: 'ZH',
             };
 
             const { settings } = await chrome.storage.local.get(['settings']);
             translate.url = settings.translateUrl || translate.url;
             translate.token = settings.translateToken || '';
+            translate.source = settings.translateSource || translate.source;
+            translate.target = settings.translateTarget || translate.target;
 
             const headers = {
                 'Content-Type': 'application/json',
@@ -156,8 +160,8 @@ class WordBook {
                 headers: headers,
                 body: JSON.stringify({
                     text: word,
-                    source_lang: "auto",
-                    target_lang: "ZH"
+                    source_lang: translate.source,
+                    target_lang: translate.target,
                 })
             });
 
@@ -396,12 +400,11 @@ class WordBook {
                             <div class="word-text">${this.escapeHtml(word.word)}</div>
                             ${hasTranslation ?
                     `<div class="word-translation">${this.escapeHtml(translation)}</div>` :
-                    `<div class="word-no-translation">
-                                    <button class="btn-translate" data-translate-id="${word.id}">🔄 翻译</button>
-                                </div>`
+                    `<div class="word-no-translation"></div>`
                 }
                         </div>
                         <div class="word-actions">
+                            <button class="btn-small btn-translate" data-translate-id="${word.id}" title="翻译">🔄</button>
                             <button class="btn-small familiarity-btn" data-id="${word.id}" title="标记熟悉度">
                                 ${this.getFamiliarityIcon(word.familiarity)}
                             </button>
